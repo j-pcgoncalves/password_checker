@@ -14,7 +14,9 @@ def get_password_leaks_count(hashes, hash_to_check):
     hashes = (line.split(':') for line in hashes.text.splitlines())
 
     for h, count in hashes:
-        print(h, count)
+        if h == hash_to_check:
+            return count
+        return 0
 
 def pwned_api_check(password):
     sha1password = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
@@ -23,4 +25,5 @@ def pwned_api_check(password):
 
     return get_password_leaks_count(response, tail)
 
-pwned_api_check('123')
+def main():
+    
